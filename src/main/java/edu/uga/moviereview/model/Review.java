@@ -1,33 +1,14 @@
 package edu.uga.moviereview.model;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "Reviews")
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ReviewId")
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "UserId")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "MovieId")
-    private Movie movie;
-
-    @Column(name = "Rating")
-    private int rating;
-
-    @Column(name = "Comment")
-    private String comment;
-
-    @Column(name = "ReviewDate")
+    private String content;
     private Date reviewDate;
+    private Movie movie;
+    private User user;
 
     public Review() {
     }
@@ -41,12 +22,20 @@ public class Review {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getContent() {
+        return content;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Date reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
     public Movie getMovie() {
@@ -57,27 +46,11 @@ public class Review {
         this.movie = movie;
     }
 
-    public int getRating() {
-        return rating;
+    public User getUser() {
+        return user;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public Date getReviewDate() {
-        return reviewDate;
-    }
-
-    public void setReviewDate(Date reviewDate) {
-        this.reviewDate = reviewDate;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

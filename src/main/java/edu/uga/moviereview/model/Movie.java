@@ -1,34 +1,31 @@
-package edu.uga.moviereview.model; 
+package edu.uga.moviereview.model;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
-@Table(name = "Movies")
 public class Movie {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MovieId")
     private Long id;
-
-    @Column(name = "MovieName", unique = true, nullable = false)
     private String movieName;
-
-    @Column(name = "ReleaseDate")
     private Date releaseDate;
-
-    @Column(name = "Director")
     private String director;
-
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private Set<Review> reviews;
+    private Double averageRating;
 
     public Movie() {
     }
 
+    // A full constructor can be handy when mapping result sets to objects in JDBC
+    public Movie(Long id, String movieName, Date releaseDate, String director, Double averageRating) {
+        this.id = id;
+        this.movieName = movieName;
+        this.releaseDate = releaseDate;
+        this.director = director;
+        this.averageRating = averageRating;
+    }
+
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
@@ -67,5 +64,13 @@ public class Movie {
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
     }
 }
