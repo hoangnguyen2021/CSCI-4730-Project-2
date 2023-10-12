@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package edu.uga.moviereview.model;
 
 import javax.persistence.*;
 import java.util.Date;
