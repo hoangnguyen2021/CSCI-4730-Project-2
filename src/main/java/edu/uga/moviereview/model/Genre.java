@@ -15,9 +15,6 @@ public class Genre {
     @Column(name = "GenreName", unique = true, nullable = false, length = 50)
     private String genreName;
 
-    @ManyToMany(mappedBy = "genres")
-    private Set<Movie> movies;
-
     public int getGenreId() {
         return genreId;
     }
@@ -32,13 +29,5 @@ public class Genre {
 
     public void setGenreName(String genreName) {
         this.genreName = genreName;
-    }
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Set<Movie> movies) {
-        this.movies = movies;
     }
 }
