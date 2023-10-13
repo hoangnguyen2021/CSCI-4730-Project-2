@@ -1,37 +1,43 @@
 package edu.uga.moviereview.model;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "Movies")
 public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MovieId")
+    private int movieId;
 
-    private Long id;
+    @Column(name = "MovieName", nullable = false)
     private String movieName;
+
+    @Column(name = "ReleaseDate", nullable = false)
     private Date releaseDate;
+
+    @Column(name = "Director")
     private String director;
-    private Set<Review> reviews;
-    private Double averageRating;
 
-    public Movie() {
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "Movie_Genre",
+            joinColumns = {@JoinColumn(name = "MovieId")},
+            inverseJoinColumns = {@JoinColumn(name = "GenreId")})
+    private Set<Genre> genres;
+
+    @OneToMany(mappedBy = "movie")
+    private Set<Review> reviews = new LinkedHashSet<>();
+
+    public int getMovieId() {
+        return movieId;
     }
 
-    // A full constructor can be handy when mapping result sets to objects in JDBC
-    public Movie(Long id, String movieName, Date releaseDate, String director, Double averageRating) {
-        this.id = id;
-        this.movieName = movieName;
-        this.releaseDate = releaseDate;
-        this.director = director;
-        this.averageRating = averageRating;
-    }
-
-    // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getMovieName() {
@@ -58,19 +64,20 @@ public class Movie {
         this.director = director;
     }
 
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
+
+
     public Set<Review> getReviews() {
         return reviews;
     }
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    public Double getAverageRating() {
-        return averageRating;
-    }
-
-    public void setAverageRating(Double averageRating) {
-        this.averageRating = averageRating;
     }
 }

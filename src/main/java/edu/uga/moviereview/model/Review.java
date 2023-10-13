@@ -2,40 +2,47 @@ package edu.uga.moviereview.model;
 
 import java.util.Date;
 
-public class Review {
+import jakarta.persistence.*;
 
-    private Long id;
-    private String content;
-    private Date reviewDate;
-    private Movie movie;
+@Entity
+@Table(name = "Reviews")
+public class Review {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ReviewId")
+    private int reviewId;
+
+    @ManyToOne
+    @JoinColumn(name = "UserId")
     private User user;
 
-    public Review() {
+    @ManyToOne
+    @JoinColumn(name = "MovieId")
+    private Movie movie;
+
+    @Column(name = "Rating", nullable = false)
+    private int rating;
+
+    @Column(name = "Comment", length = 1000)
+    private String comment;
+
+    @Column(name = "ReviewDate", nullable = false)
+    private Date reviewDate;
+
+    public int getReviewId() {
+        return reviewId;
     }
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public User getUser() {
+        return user;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Date getReviewDate() {
-        return reviewDate;
-    }
-
-    public void setReviewDate(Date reviewDate) {
-        this.reviewDate = reviewDate;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Movie getMovie() {
@@ -46,11 +53,27 @@ public class Review {
         this.movie = movie;
     }
 
-    public User getUser() {
-        return user;
+    public int getRating() {
+        return rating;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Date getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Date reviewDate) {
+        this.reviewDate = reviewDate;
     }
 }

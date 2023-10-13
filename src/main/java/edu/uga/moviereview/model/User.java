@@ -1,50 +1,43 @@
 package edu.uga.moviereview.model;
 
+import jakarta.persistence.*;
+
+import java.util.Date;
+
+@Entity
+@Table(name = "Users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UserId")
+    private int userId;
 
-    private Long id;
-    private String username;
-    private String password;
+    @Column(name = "UserName", unique = true, nullable = false, length = 100)
+    private String userName;
+
+    @Column(name = "Email", unique = true, nullable = false)
     private String email;
-    private String firstName;
-    private String lastName;
 
-    public User() {
+    @Column(name = "RegistrationDate", nullable = false)
+    private Date registrationDate;
+
+    @Column(name = "PasswordHash", nullable = false)
+    private String passwordHash;
+
+    public int getUserId() {
+        return userId;
     }
 
-    // Standard constructors, getters, and setters below
-
-    public User(Long id, String username, String password, String email, String firstName, String lastName) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public Long getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -55,19 +48,19 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Date getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
