@@ -17,8 +17,8 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/movies")
-    public String getMovies(Model model) {
-        List<Map<String, Object>> movies = movieService.fetchMovies();
+    public String getMoviesWithGenres(Model model) {
+        List<Map<String, Object>> movies = movieService.fetchMoviesWithGenres();
         model.addAttribute("movies", movies);
         return "movies";
     }

@@ -84,3 +84,8 @@ body {
     display: flex;
     flex: 1;
 }
+
+.movietile > .genre {
+    display: flex;
+    flex: 1;
+}

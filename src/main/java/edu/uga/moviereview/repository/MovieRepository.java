@@ -18,8 +18,13 @@ public class MovieRepository {
         return jdbcTemplate.queryForList(sql);
     }
 
-    public List<Map<String, Object>> getMovies() {
-        String sql = "SELECT MovieName, ReleaseDate, Director FROM Movies";
+    public List<Map<String, Object>> getMoviesWithGenres() {
+        String sql =
+            """
+            SELECT MovieName, ReleaseDate, Director, Genres.GenreName from Movies
+            INNER JOIN Movie_Genre ON Movie_Genre.MovieId = Movies.MovieId
+            INNER JOIN Genres ON Movie_Genre.GenreID = Genres.GenreId
+            """;
         return jdbcTemplate.queryForList(sql);
     }
 }
