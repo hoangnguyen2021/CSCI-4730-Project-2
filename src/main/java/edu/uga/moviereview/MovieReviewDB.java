@@ -5,11 +5,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.example.demo.*"})
-public class DemoApplication {
+@ComponentScan(basePackages = {"edu.uga.moviereview.*"})
+public class MovieReviewDB {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(MovieReviewDB.class, args);
 	}
 
 }
