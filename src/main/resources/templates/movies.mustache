@@ -15,9 +15,15 @@
 
     <div class="content">
 
+        <div class="movietile-flexbox">
         {{#movies}}
-
+            <div class="movietile">
+                <p class="movie-name">{{MovieName}}</p>
+                <p class="release-date">Released on: {{ReleaseDate}}</p>
+                <p class="director">Director: {{Director}}</p>
+            </div>
         {{/movies}}
+        </div>
 
     </div>
 
