@@ -14,6 +14,10 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    public List<Map<String, Object>> fetchMovies() {
+        return movieRepository.getMovies();
+    }
+
     public List<Map<String, Object>> fetchTopRatedMovies() {
         return movieRepository.getTopRatedMovies();
     }

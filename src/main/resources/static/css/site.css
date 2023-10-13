@@ -11,10 +11,18 @@ body {
 }
 
 .header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 20px;
     padding: 20px 30px 20px 30px;
     background-color: #292929;
     color: white;
     font-size: 30px;
+}
+
+.linkimage {
+    display: flex;
 }
 
 .linktile-flexbox {

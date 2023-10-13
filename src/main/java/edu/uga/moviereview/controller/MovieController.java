@@ -16,6 +16,13 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    @GetMapping("/movies")
+    public String getMovies(Model model) {
+        List<Map<String, Object>> movies = movieService.fetchMovies();
+        model.addAttribute("movies", movies);
+        return "movies";
+    }
+
     @GetMapping("/top-rated-movies")
     public String getTopRatedMovies(Model model) {
         List<Map<String, Object>> topRatedMovies = movieService.fetchTopRatedMovies();

@@ -17,4 +17,9 @@ public class MovieRepository {
         String sql = "SELECT MovieName, AVG(Rating) as AverageRating FROM Reviews r JOIN Movies m ON r.MovieId = m.MovieId GROUP BY MovieName ORDER BY AverageRating DESC LIMIT 3";
         return jdbcTemplate.queryForList(sql);
     }
+
+    public List<Map<String, Object>> getMovies() {
+        String sql = "SELECT MovieName, ReleaseDate, Director FROM Movies";
+        return jdbcTemplate.queryForList(sql);
+    }
 }
