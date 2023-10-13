@@ -6,27 +6,16 @@ import jakarta.persistence.*;
 @Table(name = "Movie_Genre")
 @IdClass(MovieGenreId.class)
 public class MovieGenre {
-    @Id
-    @Column(name = "MovieId")
-    private int movieId;
+    @EmbeddedId
+    private MovieGenreId id;
 
-    @Id
-    @Column(name = "GenreId")
-    private int genreId;
+    @OneToOne
+    @MapsId("movieId")
+    @JoinColumn(name = "MovieId")
+    private Movie movie;
 
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
-    }
-
-    public int getGenreId() {
-        return genreId;
-    }
-
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-    }
+    @OneToOne
+    @MapsId("genreId")
+    @JoinColumn(name = "GenreId")
+    private Genre genre;
 }
