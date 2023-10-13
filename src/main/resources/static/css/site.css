@@ -16,14 +16,13 @@ body {
 }
 
 .linktile-flexbox {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
     gap: 20px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .linktile {
-    display: flex;
-    width: 200px;
+    display: grid;
     height: 50px;
     padding: 20px;
     font-size: 20px;
