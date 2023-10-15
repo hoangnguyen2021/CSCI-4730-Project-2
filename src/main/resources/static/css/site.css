@@ -45,6 +45,26 @@ body {
     background-color: #8f2100;
 }
 
+.flex-4 {
+    display: flex;
+    flex: 4;
+}
+
+.flex-3 {
+    display: flex;
+    flex: 3;
+}
+
+.flex-2 {
+    display: flex;
+    flex: 2;
+}
+
+.flex-1 {
+    display: flex;
+    flex: 1;
+}
+
 .movietile-flexbox {
     display: flex;
     gap: 10px;
@@ -53,31 +73,19 @@ body {
 
 .movietile-flexbox > .movietile {
     display: flex;
-    flex-basis: 0;
-    flex-grow: 1 1 0px;
+    flex: 1;
 
     box-shadow: 0px 0px 3px 1px #757575;
 
     height: 200px;
     background-color: #b0b0b0;
     color: black;
-    font-size: 20px;
     text-decoration: none;
 
     padding: 20px;
     flex-flow: row nowrap;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 20px;
-}
-
-.movietile > .flex-2 {
-    display: flex;
-    flex: 2;
-}
-
-.movietile > .flex-1 {
-    display: flex;
-    flex: 1;
 }
 
 .reviewtile-flexbox {
@@ -88,24 +96,23 @@ body {
 
 .reviewtile-flexbox > .reviewtile {
     display: flex;
-    flex-basis: 0;
-    flex-grow: 1 1 0px;
+    flex: 1;
 
     box-shadow: 0px 0px 3px 1px #757575;
 
     height: 200px;
     background-color: #b0b0b0;
     color: black;
-    font-size: 20px;
     text-decoration: none;
 
     padding: 20px;
     flex-flow: column nowrap;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 10px;
 }
 
 .reviewtile > .row {
     display: flex;
     flex: 1;
+    flex-flow: row nowrap;
 }

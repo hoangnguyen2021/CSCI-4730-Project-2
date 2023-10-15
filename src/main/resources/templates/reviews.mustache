@@ -10,7 +10,7 @@
         <a class="linkimage" href="/">
             <img src="/images/home.png" alt="Home" width="32" height="32">
         </a>
-        <p>MovieReview</p>
+        <p>MovieReview - Reviews</p>
     </div>
 
     <div class="content">
@@ -19,8 +19,12 @@
         {{#reviews}}
             <div class="reviewtile">
                 <div class="row">
-                    <p>User: {{UserName}}</p>
+                    <h4 class="flex-1">{{UserName}}</p>
+                    <h4 class="flex-1">Movie: {{MovieName}}</p>
+                    <h4 class="flex-1">Rating: {{Rating}}</p>
+                    <h4 class="flex-1">Date: {{ReviewDate}}</p>
                 </div>
+                <p class="flex-1">{{Comment}}</p>
             </div>
         {{/reviews}}
         </div>
