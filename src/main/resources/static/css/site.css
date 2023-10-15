@@ -70,22 +70,18 @@ body {
     gap: 20px;
 }
 
-.movietile > .movie-name {
+.movietile > .flex-2 {
     display: flex;
     flex: 2;
 }
 
-.movietile > .release-date {
+.movietile > .flex-1 {
     display: flex;
     flex: 1;
 }
 
-.movietile > .director {
+.genretile-flexbox {
     display: flex;
-    flex: 1;
-}
-
-.movietile > .genre {
-    display: flex;
-    flex: 1;
+    gap: 20px;
+    flex-flow: column nowrap;
 }

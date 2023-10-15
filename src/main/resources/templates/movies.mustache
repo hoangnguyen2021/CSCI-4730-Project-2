@@ -7,7 +7,7 @@
 <body>
 
     <div class="header">
-        <a class="linkimage" href="/index.html">
+        <a class="linkimage" href="/">
             <img src="/images/home.png" alt="Home" width="32" height="32">
         </a>
         <p>MovieReview - Movies</p>
@@ -17,12 +17,12 @@
 
         <div class="movietile-flexbox">
         {{#movies}}
-            <div class="movietile">
-                <p class="movie-name">{{MovieName}}</p>
-                <p class="release-date">Released on: {{ReleaseDate}}</p>
-                <p class="director">Director: {{Director}}</p>
-                <p class="genre">Genre: {{GenreName}}</p>
-            </div>
+            <a class="movietile" href="/">
+                <p class="flex-2">{{MovieName}}</p>
+                <p class="flex-1">Released on: {{ReleaseDate}}</p>
+                <p class="flex-1">Director: {{Director}}</p>
+                <p class="flex-1">Genre: {{GenreName}}</p>
+            </a>
         {{/movies}}
         </div>
 
