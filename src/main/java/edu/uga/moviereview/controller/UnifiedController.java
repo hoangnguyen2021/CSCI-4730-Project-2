@@ -1,8 +1,5 @@
 package edu.uga.moviereview.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import edu.uga.moviereview.model.Review;
 import edu.uga.moviereview.service.GenreService;
 import edu.uga.moviereview.service.MovieService;
 import edu.uga.moviereview.service.ReviewService;
@@ -26,8 +22,8 @@ public class UnifiedController {
     @Autowired
     private MovieService movieService;
 
-    @Autowired
-    private GenreService genreService;
+    //@Autowired
+    //private GenreService genreService;
 
     @Autowired
     private ReviewService reviewService;
@@ -36,92 +32,21 @@ public class UnifiedController {
     private UserService userService;
 
     @GetMapping("/movies")
-    public String loadMoviesPage(Model model) {
+    public String getMoviesPage(Model model) {
         List<Map<String, Object>> movies = movieService.fetchMoviesWithGenres();
         model.addAttribute("movies", movies);
         return "movies";
     }
 
     @GetMapping("/top-rated-movies")
-    public String loadTopRatedMoviesPage(Model model) {
+    public String getTopRatedMoviesPage(Model model) {
         List<Map<String, Object>> topRatedMovies = movieService.fetchTopRatedMovies();
         model.addAttribute("movies", topRatedMovies);
         return "top-rated-movies";  // This refers to the 'top-rated-movies' view (e.g., a Mustache or Thymeleaf template)
     }
 
-    @GetMapping("/new-movie")
-    public String loadNewMoviePage() {
-        return null;
-    }
-
-    @GetMapping("/new-review")
-    public String loadNewReviewPage(Model model) {
-        List<Map<String, Object>> movieNames = movieService.fetchMovieNames();
-        model.addAttribute("movie-names", movieNames);
-        model.addAttribute("error-message", "");
-        return "new-review";
-    }
-
-    @GetMapping("/movies-after-date")
-    public String fetchMovieAfterDate(Model model, @RequestParam(required = false) String releaseDate){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date parseDate = null;
-            if (releaseDate != null && !"".equals(releaseDate)){
-                parseDate = format.parse(releaseDate);
-            }
-            List<Map<String, Object>> maps = movieService.fetchMovieAfterDate(parseDate);
-            model.addAttribute("movies", maps);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "movies-after-date";
-    }
-
-    @GetMapping("/movie-with-genres")
-    public String fetchMoviesWithGenres(Model model) {
-        List<Map<String, Object>> moviesWithGenres = movieService.fetchMoviesCountInGenres();
-        model.addAttribute("movies", moviesWithGenres);
-        return "movie-with-genres";
-    }
-
-    @GetMapping("/insert-movie-mustache")
-    public String insertMovie() {
-        return "/insert-movie";
-    }
-
-    @GetMapping("/insert-movie")
-    public String insertMovie(@RequestParam String movieName, @RequestParam String releaseDate, @RequestParam String director) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date parseDate = format.parse(releaseDate);
-            movieService.insertMovie(movieName, parseDate, director);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "insert-movie";
-    }
-
-    @GetMapping("/delete-movie-mustache")
-    public String deleteMovie() {
-        return "/delete-movie";
-    }
-
-    @GetMapping("/delete-movie")
-    public String deleteMovie(@RequestParam String movieName) {
-        movieService.deleteMovie(movieName);
-        return "delete-movie";
-    }
-
-    @GetMapping("/new-genre")
-    public String loadNewGenrePage(Model model) {
-        List<Map<String, Object>> genreNames = genreService.fetchGenreNames();
-        model.addAttribute("genre-names", genreNames);
-        return "/new-genre";
-    }
-
     @GetMapping("/reviews")
-    public String loadReviewsPage(Model model, @RequestParam(required = false) String userName) {
+    public String getReviewsPage(Model model, @RequestParam(required = false) String userName) {
         if (userName == null)
         {
             List<Map<String, Object>> reviews = reviewService.fetchReviews();
@@ -136,8 +61,54 @@ public class UnifiedController {
         }
     }
 
+    @GetMapping("/new-user")
+    public String getNewUserPage(Model model) {
+        model.addAttribute("error-message", "");
+        return "new-user";
+    }
+
+    @PostMapping("/new-user")
+    public String postNewUserPage(Model model,
+        @ModelAttribute("username") String username,
+        @ModelAttribute("password") String password,
+        @ModelAttribute("email") String email) {
+        
+        if (userService.userExists(username)) {
+            model.addAttribute("error-message", "Username already exists.");
+            return "new-user";
+        }
+
+        if (userService.emailExists(email)) {
+            model.addAttribute("error-message", "Email already registered.");
+            return "new-user";
+        }
+
+        userService.addUser(username, password, email);
+        model.addAttribute("error-message", "");
+        return "new-user";
+    }
+
+    @GetMapping("/new-movie")
+    public String getNewMoviePage(Model model) {
+        return "new-movie";
+    }
+
+    @PostMapping("/new-movie")
+    public String postNewMoviePage() {
+        // stuff here
+        return null;
+    }
+
+    @GetMapping("/new-review")
+    public String getNewReviewPage(Model model) {
+        List<Map<String, Object>> movieNames = movieService.fetchMovieNames();
+        model.addAttribute("movie-names", movieNames);
+        model.addAttribute("error-message", "");
+        return "new-review";
+    }
+
     @PostMapping("/new-review")
-    public String submitNewReviewPage(Model model,
+    public String postNewReviewPage(Model model,
         @ModelAttribute("username") String username,
         @ModelAttribute("password") String password,
         @ModelAttribute("movie-name") String movieName,
@@ -160,5 +131,10 @@ public class UnifiedController {
         model.addAttribute("movie-names", movieNames);
         model.addAttribute("error-message", "");
         return "new-review";
+    }
+
+    @GetMapping("/new-genre")
+    public String getNewGenrePage(Model model) {
+        return null;
     }
 }

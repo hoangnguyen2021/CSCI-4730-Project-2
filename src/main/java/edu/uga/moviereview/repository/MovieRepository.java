@@ -56,7 +56,7 @@ public class MovieRepository {
     }
 
     public void deleteMovie(String movieName) {
-        String sql = "DELETE FROM movies WHERE MovieName = ? ";
+        String sql = "DELETE FROM movies WHERE MovieName = ?";
         jdbcTemplate.update(sql, movieName);
     }
 

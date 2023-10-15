@@ -15,8 +15,15 @@ public class UserService {
         return userRepository.hasUser(username);
     }
 
+    public boolean emailExists(String email) {
+        return userRepository.hasEmail(email);
+    }
+
     public boolean isPasswordCorrect(String username, String password) {
         return userRepository.isPasswordCorrect(username, password);
     }
 
+    public void addUser(String username, String password, String email) {
+        userRepository.addUser(username, password, email);
+    }
 }

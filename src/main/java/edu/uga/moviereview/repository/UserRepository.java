@@ -13,9 +13,17 @@ public class UserRepository {
     public boolean hasUser(String username) {
         String sql =
             """
-            SELECT EXISTS(SELECT UserName FROM Users WHERE UserName = \"%s\")
-            """.formatted(username);
-        return jdbcTemplate.queryForObject(sql, Boolean.class);
+            SELECT EXISTS(SELECT UserName FROM Users WHERE UserName = ?)
+            """;
+        return jdbcTemplate.queryForObject(sql, Boolean.class, username);
+    }
+
+    public boolean hasEmail(String email) {
+        String sql =
+            """
+            SELECT EXISTS(SELECT Email FROM Users WHERE Email = ?)
+            """;
+        return jdbcTemplate.queryForObject(sql, Boolean.class, email);
     }
 
     public boolean isPasswordCorrect(String username, String password) {
@@ -23,10 +31,24 @@ public class UserRepository {
             """
             SELECT EXISTS(
                 SELECT UserName FROM Users
-                WHERE UserName = \"%s\"
-                AND PasswordHash = \"%s\")
-            """.formatted(username, password);
-        return jdbcTemplate.queryForObject(sql, Boolean.class);
+                WHERE UserName = ?
+                AND PasswordHash = ?)
+            """;
+        return jdbcTemplate.queryForObject(sql, Boolean.class, username, password);
+    }
+
+    public void addUser(String username, String password, String email) {
+        String sql =
+            """
+            INSERT INTO Users (UserName, Email, RegistrationDate, PasswordHash) VALUES
+            (
+                ?,
+                ?,
+                CURDATE(),
+                ?
+            )
+            """;
+        jdbcTemplate.update(sql, username, email, password);
     }
 
 }

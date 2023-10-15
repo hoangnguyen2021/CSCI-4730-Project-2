@@ -38,13 +38,13 @@ public class ReviewRepository {
             """
             INSERT INTO Reviews (UserId, MovieId, Rating, Comment, ReviewDate) VALUES
             (
-                (SELECT UserId FROM Users WHERE UserName = \"%s\" LIMIT 1),
-                (SELECT MovieId FROM Movies WHERE MovieName = \"%s\" LIMIT 1),
-                %d,
-                \"%s\",
+                (SELECT UserId FROM Users WHERE UserName = ? LIMIT 1),
+                (SELECT MovieId FROM Movies WHERE MovieName = ? LIMIT 1),
+                ?,
+                ?,
                 CURDATE()
             )
-            """.formatted(userName, movieName, rating, comment);
-        jdbcTemplate.execute(sql);
+            """;
+        jdbcTemplate.update(sql, userName, movieName, rating, comment);
     }
 }
