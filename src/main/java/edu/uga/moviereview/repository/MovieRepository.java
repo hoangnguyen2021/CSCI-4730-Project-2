@@ -16,7 +16,7 @@ public class MovieRepository {
     public List<Map<String, Object>> getTopRatedMovies() {
         String sql =
             """
-            SELECT MovieName, AVG(Rating) as AverageRating FROM Reviews r
+            SELECT MovieName, ROUND(AVG(Rating),2) as AverageRating FROM Reviews r
             JOIN Movies m ON r.MovieId = m.MovieId
             GROUP BY MovieName
             ORDER BY AverageRating
