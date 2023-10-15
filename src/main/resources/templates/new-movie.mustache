@@ -13,15 +13,26 @@
         <p>MovieReview - New Movie</p>
     </div>
 
-    <div class="content">
+    <div class="centered-content">
 
         <form action="/new-movie" method="post">
-            <label for="movie-name">Movie Name: </label>
-            <select id="movie-name" name="movie-name">
-            {{#movie-names}}
-                <option value="{{MovieName}}">{{MovieName}}</option>
-            {{/movie-names}}
-            </select>
+            <ul class="no-bullets">
+                <li>
+                    <label for="username">Username: </label>
+                    <input type="text" id="username" name="username">
+                </li>
+
+                <li>
+                    <label for="password">Password: </label>
+                    <input type="text" id="password" name="password">
+                </li>
+
+                <li>
+                    <label for="movie-name">Movie Name: </label>
+                    <input type="text" id="movie-name" name="movie-name">
+                    </select>
+                </li>
+            <ul>
         </form>
 
     </div>

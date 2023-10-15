@@ -6,8 +6,20 @@ body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+ul.no-bullets {
+    list-style-type: none;
+}
+
 .content {
     padding: 20px;
+}
+
+.centered-content {
+    padding: 20px;
+    display: flex;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
 }
 
 .header {

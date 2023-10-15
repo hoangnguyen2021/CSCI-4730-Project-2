@@ -31,14 +31,14 @@ public class MovieController {
     }
 
     @GetMapping("/new-movie")
-    public String loadNewMoviePage(Model model) {
-        List<Map<String, Object>> movieNames = movieService.fetchMovieNames();
-        model.addAttribute("movie-names", movieNames);
-        return "new-movie";
+    public String loadNewMoviePage() {
+        return null;
     }
 
     @GetMapping("/new-review")
-    public String loadNewReviewPage() {
-        return null;
+    public String loadNewReviewPage(Model model) {
+        List<Map<String, Object>> movieNames = movieService.fetchMovieNames();
+        model.addAttribute("movie-names", movieNames);
+        return "new-review";
     }
 }

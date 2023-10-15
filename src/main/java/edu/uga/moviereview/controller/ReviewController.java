@@ -18,7 +18,7 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @GetMapping("/reviews")
-    public String getReviews(Model model, @RequestParam(required = false) String userName) {
+    public String loadReviewsPage(Model model, @RequestParam(required = false) String userName) {
         if (userName == null)
         {
             List<Map<String, Object>> reviews = reviewService.fetchReviews();
