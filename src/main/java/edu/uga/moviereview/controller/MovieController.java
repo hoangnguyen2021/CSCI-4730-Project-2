@@ -17,22 +17,24 @@ public class MovieController {
     private MovieService movieService;
 
     @GetMapping("/movies")
-    public String getMoviesWithGenres(Model model) {
+    public String loadMoviesPage(Model model) {
         List<Map<String, Object>> movies = movieService.fetchMoviesWithGenres();
         model.addAttribute("movies", movies);
         return "movies";
     }
 
     @GetMapping("/top-rated-movies")
-    public String getTopRatedMovies(Model model) {
+    public String loadTopRatedMoviesPage(Model model) {
         List<Map<String, Object>> topRatedMovies = movieService.fetchTopRatedMovies();
         model.addAttribute("movies", topRatedMovies);
         return "top-rated-movies";  // This refers to the 'top-rated-movies' view (e.g., a Mustache or Thymeleaf template)
     }
 
     @GetMapping("/new-movie")
-    public String loadNewMoviePage() {
-        return null;
+    public String loadNewMoviePage(Model model) {
+        List<Map<String, Object>> movieNames = movieService.fetchMovieNames();
+        model.addAttribute("movie-names", movieNames);
+        return "new-movie";
     }
 
     @GetMapping("/new-review")

@@ -21,4 +21,8 @@ public class MovieService {
     public List<Map<String, Object>> fetchTopRatedMovies() {
         return movieRepository.getTopRatedMovies();
     }
+
+    public List<Map<String, Object>> fetchMovieNames() {
+        return movieRepository.getMovieNames();
+    }
 }

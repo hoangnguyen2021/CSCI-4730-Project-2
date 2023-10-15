@@ -13,6 +13,16 @@ public class MovieRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public List<Map<String, Object>> getMoviesWithGenres() {
+        String sql =
+            """
+            SELECT MovieName, ReleaseDate, Director, Genres.GenreName FROM Movies
+            INNER JOIN Movie_Genre ON Movie_Genre.MovieId = Movies.MovieId
+            INNER JOIN Genres ON Movie_Genre.GenreID = Genres.GenreId
+            """;
+        return jdbcTemplate.queryForList(sql);
+    }
+
     public List<Map<String, Object>> getTopRatedMovies() {
         String sql =
             """
@@ -25,12 +35,10 @@ public class MovieRepository {
         return jdbcTemplate.queryForList(sql);
     }
 
-    public List<Map<String, Object>> getMoviesWithGenres() {
+    public List<Map<String, Object>> getMovieNames() {
         String sql =
             """
-            SELECT MovieName, ReleaseDate, Director, Genres.GenreName from Movies
-            INNER JOIN Movie_Genre ON Movie_Genre.MovieId = Movies.MovieId
-            INNER JOIN Genres ON Movie_Genre.GenreID = Genres.GenreId
+            SELECT MovieName FROM Movies
             """;
         return jdbcTemplate.queryForList(sql);
     }

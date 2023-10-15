@@ -15,7 +15,14 @@
 
     <div class="content">
 
-        
+        <form action="/new-movie" method="post">
+            <label for="movie-name">Movie Name: </label>
+            <select id="movie-name" name="movie-name">
+            {{#movie-names}}
+                <option value="{{MovieName}}">{{MovieName}}</option>
+            {{/movie-names}}
+            </select>
+        </form>
 
     </div>
 
