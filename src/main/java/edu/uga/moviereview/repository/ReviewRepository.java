@@ -32,4 +32,19 @@ public class ReviewRepository {
             """.formatted(userName);
         return jdbcTemplate.queryForList(sql);
     }
+
+    public void addReview(String userName, String movieName, int rating, String comment) {
+        String sql =
+            """
+            INSERT INTO Reviews (UserId, MovieId, Rating, Comment, ReviewDate) VALUES
+            (
+                (SELECT UserId FROM Users WHERE UserName = \"%s\" LIMIT 1),
+                (SELECT MovieId FROM Movies WHERE MovieName = \"%s\" LIMIT 1),
+                %d,
+                \"%s\",
+                CURDATE()
+            )
+            """.formatted(userName, movieName, rating, comment);
+        jdbcTemplate.execute(sql);
+    }
 }

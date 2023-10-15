@@ -22,4 +22,8 @@ public class ReviewService {
         return reviewRepository.getReviewsWithUserName(userName);
     }
 
+    public void addReview(String userName, String movieName, int rating, String comment) {
+        reviewRepository.addReview(userName, movieName, rating, comment);
+    }
+
 }

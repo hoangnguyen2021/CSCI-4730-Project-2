@@ -17,26 +17,36 @@
 
         <form action="/new-review" method="post">
             <ul class="no-bullets">
-                <li>
-                    <label for="username">Username: </label>
-                    <input type="text" id="username" name="username">
-                </li>
+                <li><label for="username">Username: </label></li>
+                <li><input type="text" id="username" name="username" required></li>
 
-                <li>
-                    <label for="password">Password: </label>
-                    <input type="text" id="password" name="password">
-                </li>
+                <li><label for="password">Password: </label></li>
+                <li><input type="text" id="password" name="password" required></li>
 
-                <li>
-                    <label for="movie-name">Movie Name: </label>
-                    <select id="movie-name" name="movie-name">
-                    {{#movie-names}}
-                        <option value="{{MovieName}}">{{MovieName}}</option>
-                    {{/movie-names}}
-                    </select>
-                </li>
+                <li><label for="movie-name">Movie Name: </label></li>
+                <li><select id="movie-name" name="movie-name" required>
+                {{#movie-names}}
+                    <option value="{{MovieName}}">{{MovieName}}</option>
+                {{/movie-names}}
+                </select></li>
+
+                <li><label for="rating">Rating: </label></li>
+                <li><select id="rating" name="rating" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select></li>
+
+                <li><label for="comment">Comment: </label></li>
+                <li><textarea id="comment" name="comment" rows="10" cols="50" required></textarea></li>
+
+                <li><input type="submit" value="Submit!"></input></li>
             <ul>
     </form>
+
+    <p>{{error-message}}</p>
 
     </div>
 
