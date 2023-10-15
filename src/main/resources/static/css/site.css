@@ -80,8 +80,32 @@ body {
     flex: 1;
 }
 
-.genretile-flexbox {
+.reviewtile-flexbox {
     display: flex;
     gap: 20px;
     flex-flow: column nowrap;
+}
+
+.reviewtile-flexbox > .reviewtile {
+    display: flex;
+    flex-basis: 0;
+    flex-grow: 1 1 0px;
+
+    box-shadow: 0px 0px 3px 1px #757575;
+
+    height: 200px;
+    background-color: #b0b0b0;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+
+    padding: 20px;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.reviewtile > .row {
+    display: flex;
+    flex: 1;
 }

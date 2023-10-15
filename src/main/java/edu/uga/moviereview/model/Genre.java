@@ -2,8 +2,6 @@ package edu.uga.moviereview.model;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "Genres")
 public class Genre {

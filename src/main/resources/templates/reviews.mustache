@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="/css/site.css">
-    <title>MovieReview</title>
+    <title>MovieReview - Reviews</title>
 </head>
 <body>
 
@@ -15,7 +15,15 @@
 
     <div class="content">
 
-        
+        <div class="reviewtile-flexbox">
+        {{#reviews}}
+            <div class="reviewtile">
+                <div class="row">
+                    <p>User: {{UserName}}</p>
+                </div>
+            </div>
+        {{/reviews}}
+        </div>
 
     </div>
 

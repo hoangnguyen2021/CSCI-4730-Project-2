@@ -1,10 +1,10 @@
 package edu.uga.moviereview.model;
 
-import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Movies")
