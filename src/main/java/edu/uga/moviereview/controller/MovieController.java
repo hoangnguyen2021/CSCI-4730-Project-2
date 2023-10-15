@@ -29,4 +29,14 @@ public class MovieController {
         model.addAttribute("movies", topRatedMovies);
         return "top-rated-movies";  // This refers to the 'top-rated-movies' view (e.g., a Mustache or Thymeleaf template)
     }
+
+    @GetMapping("/new-movie")
+    public String loadNewMoviePage() {
+        return null;
+    }
+
+    @GetMapping("/new-review")
+    public String loadNewReviewPage() {
+        return null;
+    }
 }
