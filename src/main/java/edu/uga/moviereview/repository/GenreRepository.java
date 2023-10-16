@@ -13,6 +13,14 @@ public class GenreRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public void addGenre(String genreName) {
+        String sql =
+            """
+            INSERT INTO Genres (GenreName) VALUES (?)
+            """;
+        jdbcTemplate.update(sql, genreName);
+    }
+
     public List<Map<String, Object>> getGenreNames() {
         String sql =
             """

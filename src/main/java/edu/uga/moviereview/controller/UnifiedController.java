@@ -24,8 +24,8 @@ public class UnifiedController {
     @Autowired
     private MovieService movieService;
 
-    //@Autowired
-    //private GenreService genreService;
+    @Autowired
+    private GenreService genreService;
 
     @Autowired
     private ReviewService reviewService;
@@ -173,6 +173,26 @@ public class UnifiedController {
 
     @GetMapping("/new-genre")
     public String getNewGenrePage(Model model) {
-        return null;
+        model.addAttribute("error-message", "");
+        return "new-genre";
+    }
+
+    @PostMapping("/new-genre")
+    public String postNewGenrePage(Model model,
+        @ModelAttribute("username") String username,
+        @ModelAttribute("password") String password,
+        @ModelAttribute("genre-name") String genreName) {
+
+        boolean userExists = userService.userExists(username);
+        boolean isPasswordCorrect = userService.isPasswordCorrect(username, password);
+
+        if (!userExists || !isPasswordCorrect) {
+            model.addAttribute("error-message", userExists ? "Password is incorrect." : "Username doesn't exist.");
+            return "new-genre";
+        }
+
+        genreService.addGenre(genreName);
+        model.addAttribute("error-message", "");
+        return "new-genre";
     }
 }

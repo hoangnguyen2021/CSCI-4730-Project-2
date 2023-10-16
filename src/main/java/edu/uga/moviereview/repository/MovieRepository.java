@@ -59,12 +59,12 @@ public class MovieRepository {
     }
 
     public void addMovie(String movieName, Date releaseDate, String director) {
-        String sql = "INSERT INTO movies (MovieName, ReleaseDate, Director) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Movies (MovieName, ReleaseDate, Director) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, (Object)movieName, releaseDate, director);
     }
 
     public void deleteMovie(String movieName) {
-        String sql = "DELETE FROM movies WHERE MovieName = ?";
+        String sql = "DELETE FROM Movies WHERE MovieName = ?";
         jdbcTemplate.update(sql, movieName);
     }
 
