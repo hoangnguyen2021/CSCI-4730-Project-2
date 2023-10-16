@@ -1,9 +1,9 @@
 package edu.uga.moviereview.controller;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,9 +35,20 @@ public class UnifiedController {
 
     @GetMapping("/movies")
     public String getMoviesPage(Model model) {
+        var moviesWithGenres = new HashMap<Map<String, Object>, List<Map<String, Object>>>();
+        var movies = movieService.fetchMovies();
+        for (var movie : movies) {
+            var genres = movieService.fetchGenresForMovie(movie.get("MovieName").toString());
+            moviesWithGenres.put(movie, genres);
+        }
+        model.addAttribute("movies", moviesWithGenres.entrySet());
+        return "movies";
+
+        /*
         List<Map<String, Object>> movies = movieService.fetchMovies();
         model.addAttribute("movies", movies);
         return "movies";
+        */
     }
 
     @GetMapping("/top-rated-movies")

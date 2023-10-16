@@ -17,11 +17,23 @@
 
         <div class="movietile-flexbox">
         {{#movies}}
+
+        {{#key}}
             <a class="movietile" href="/reviews?movie-name={{MovieName}}">
-                <h4 class="flex-2">{{MovieName}}</h4>
-                <p class="flex-1">Released on: {{ReleaseDate}}</p>
-                <p class="flex-1">Director: {{Director}}</p>
+        {{/key}}
+
+        {{#key}}
+            <h4 class="flex-2">{{MovieName}}</h4>
+            <p class="flex-1">Released on: {{ReleaseDate}}</p>
+            <p class="flex-1">Director: {{Director}}</p>
+        {{/key}}
+
+        <p class="flex-2">Genres: {{#value}}{{#.}}{{GenreName}} {{/.}}{{/value}}</p>
+        
+        {{#key}}
             </a>
+        {{/key}}
+
         {{/movies}}
         </div>
 
