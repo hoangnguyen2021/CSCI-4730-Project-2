@@ -54,7 +54,13 @@ public class MovieRepository {
     }
 
     public List<Map<String, Object>> getMoviesCountInGenres() {
-        String sql = "SELECT Genres.GenreName, COUNT(Movies.MovieId) as MovieCount FROM Genres JOIN Movie_Genre ON Genres.GenreId = Movie_Genre.GenreId JOIN Movies ON Movie_Genre.MovieId = Movies.MovieId GROUP BY Genres.GenreId";
+        String sql =
+            """
+            SELECT Genres.GenreName, COUNT(Movies.MovieId) as MovieCount FROM Genres
+            INNER JOIN Movie_Genre ON Genres.GenreId = Movie_Genre.GenreId
+            INNER JOIN Movies ON Movie_Genre.MovieId = Movies.MovieId
+            GROUP BY Genres.GenreId
+            """;
         return jdbcTemplate.queryForList(sql);
     }
 
