@@ -17,12 +17,12 @@
 
         <form action="/new-movie" method="post">
             <ul class="no-bullets">
-                
+
                 <li><label for="username">Username: </label></li>
                 <li><input type="text" id="username" name="username" required></li>
 
                 <li><label for="password">Password: </label></li>
-                <li><input type="text" id="password" name="password" required></li>
+                <li><input type="password" id="password" name="password" required></li> <!-- Changed type to 'password' for security -->
 
                 <li><label for="movie-name">Movie Name: </label></li>
                 <li><input type="text" id="movie-name" name="movie-name" required></li>
@@ -33,11 +33,14 @@
                 <li><label for="director">Director: </label></li>
                 <li><input type="text" id="director" name="director" required></li>
 
-                <li><input type="submit" value="Submit!"></input></li>
-            <ul>
+                <li><label for="genre">Genre: </label></li> <!-- Added genre field -->
+                <li><input type="text" id="genre" name="genre" required></li>
+
+                <li><input type="submit" value="Submit!"></li>
+            </ul> <!-- Fixed the wrong closing ul tag -->
         </form>
 
-        <p>{{error-message}}</p>
+        <p th:text="${error-message}"></p> <!-- Using Thymeleaf syntax to bind the error message -->
 
     </div>
 

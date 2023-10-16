@@ -21,4 +21,15 @@ public class GenreService {
     public List<Map<String, Object>> fetchGenreNames() {
         return genreRepository.getGenreNames();
     }
+
+    public int getOrAddGenre(String genreName) {
+        Integer genreId = genreRepository.getGenreIdByName(genreName);
+        
+        if (genreId == null) {
+            addGenre(genreName);
+            genreId = genreRepository.getGenreIdByName(genreName);
+        }
+
+        return genreId;
+    }
 }

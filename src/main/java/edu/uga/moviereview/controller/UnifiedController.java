@@ -132,8 +132,9 @@ public class UnifiedController {
         @ModelAttribute("password") String password,
         @ModelAttribute("movie-name") String movieName,
         @ModelAttribute("release-date") Date releaseDate,
-        @ModelAttribute("director") String director) {
-        
+        @ModelAttribute("director") String director,
+        @ModelAttribute("genre") String genre) {
+
         boolean userExists = userService.userExists(username);
         boolean isPasswordCorrect = userService.isPasswordCorrect(username, password);
 
@@ -142,7 +143,7 @@ public class UnifiedController {
             return "new-movie";
         }
 
-        movieService.addMovie(movieName, releaseDate, director);
+        movieService.addMovieWithGenre(movieName, releaseDate, director, genre);
 
         model.addAttribute("error-message", "");
         return "new-movie";

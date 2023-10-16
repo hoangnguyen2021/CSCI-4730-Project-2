@@ -15,6 +15,9 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    @Autowired
+    private GenreService genreService;
+
     public List<Map<String, Object>> fetchMovies() {
         return movieRepository.getMovies();
     }
@@ -46,4 +49,14 @@ public class MovieService {
     public void deleteMovie(String movieName) {
         movieRepository.deleteMovie(movieName);
     }
+
+    public void addMovieWithGenre(String movieName, Date releaseDate, String director, String genreName) {
+        
+        addMovie(movieName, releaseDate, director);
+
+        int genreId = genreService.getOrAddGenre(genreName);
+        movieRepository.linkMovieAndGenre(movieName, genreId);
+        
+    }
+
 }

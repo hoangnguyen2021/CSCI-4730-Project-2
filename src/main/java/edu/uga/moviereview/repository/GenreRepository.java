@@ -29,4 +29,13 @@ public class GenreRepository {
         return jdbcTemplate.queryForList(sql);
     }
 
+    public Integer getGenreIdByName(String genreName) {
+        String sql = "SELECT GenreId FROM Genres WHERE GenreName = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{genreName}, Integer.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

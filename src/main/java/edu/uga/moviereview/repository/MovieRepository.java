@@ -84,4 +84,14 @@ public class MovieRepository {
             return jdbcTemplate.queryForList(sql);
         }
     }
+
+    public void linkMovieAndGenre(String movieName, int genreId) {
+        String sql = 
+            """
+            INSERT INTO Movie_Genre (MovieId, GenreId) 
+            SELECT MovieId, ? FROM Movies WHERE MovieName = ?
+            """;
+        jdbcTemplate.update(sql, genreId, movieName);
+    }
+    
 }
