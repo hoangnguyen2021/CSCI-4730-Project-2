@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/site.css">
+    <title>MovieReview - Delete Review</title>
+</head>
+<body>
+
+    <div class="header">
+        <a class="linkimage" href="/">
+            <img src="/images/home.png" alt="Home" width="32" height="32">
+        </a>
+        <p>MovieReview - Delete Review</p>
+    </div>
+
+    <div class="centered-content">
+
+        <form action="/delete-review" method="post">
+            <ul class="no-bullets">
+                <li><label for="username">Username: </label></li>
+                <li><input type="text" id="username" name="username" required></li>
+
+                <li><label for="password">Password: </label></li>
+                <li><input type="text" id="password" name="password" required></li>
+
+                <li><label for="review-id">Email: </label></li>
+                <li><select id= "review-id" name="review-id" required>
+                {{#reviews}}
+                    <option value="{{ReviewId}}">User: {{UserName}}, Movie: {{MovieName}}, Rating: {{Rating}}, Review Date: {{ReviewDate}}</option>
+                {{/reviews}}
+                </select></li>
+
+                <li><input type="submit" value="Submit!"></input></li>
+            <ul>
+    </form>
+
+    <p>{{error-message}}</p>
+
+    </div>
+
+</body>
+</html>

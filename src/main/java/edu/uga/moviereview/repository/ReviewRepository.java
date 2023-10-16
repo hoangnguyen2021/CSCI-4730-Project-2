@@ -17,13 +17,33 @@ public class ReviewRepository {
         String sql =
             """
             SELECT Movies.MovieName, Users.UserName, Rating, Comment, ReviewDate FROM Reviews
-            INNER JOIN Movies ON Reviews.MovieId = Movies.MovieId
+            INNER JOIN Movies ON Movies.MovieId = Reviews.MovieId
             INNER JOIN Users ON Users.UserId = Reviews.UserId
             """;
         return jdbcTemplate.queryForList(sql);
     }
 
-    public List<Map<String, Object>> getReviewsWithUserName(String userName) {
+    public List<Map<String, Object>> getReviewDetailsAndIds() {
+        String sql =
+            """
+            SELECT ReviewId, Movies.MovieName, Users.UserName, Rating, ReviewDate FROM Reviews
+            INNER JOIN Movies ON Movies.MovieId = Reviews.MovieId
+            INNER JOIN Users ON Users.UserId = Reviews.UserId
+            """;
+        return jdbcTemplate.queryForList(sql);
+    }
+
+    public String getUserNameFromReviewId(int id) {
+        String sql =
+            """
+            SELECT UserName FROM Users
+            INNER JOIN Reviews ON Reviews.UserId = Users.UserId AND Reviews.ReviewId = ?
+            LIMIT 1
+            """;
+        return jdbcTemplate.queryForObject(sql, String.class, id);
+    }
+
+    public List<Map<String, Object>> getReviewsHavingUserName(String userName) {
         String sql =
             """
             SELECT Movies.MovieName, Users.UserName, Rating, Comment, ReviewDate FROM Reviews
@@ -33,7 +53,7 @@ public class ReviewRepository {
         return jdbcTemplate.queryForList(sql, userName);
     }
 
-    public List<Map<String, Object>> getReviewsWithMovieName(String movieName) {
+    public List<Map<String, Object>> getReviewsHavingMovieName(String movieName) {
         String sql =
             """
             SELECT Movies.MovieName, Users.UserName, Rating, Comment, ReviewDate FROM Reviews
@@ -56,5 +76,13 @@ public class ReviewRepository {
             )
             """;
         jdbcTemplate.update(sql, userName, movieName, rating, comment);
+    }
+
+    public void deleteReview(int id) {
+        String sql =
+            """
+            DELETE FROM Reviews WHERE ReviewId = ? LIMIT 1
+            """;
+        jdbcTemplate.update(sql, id);
     }
 }

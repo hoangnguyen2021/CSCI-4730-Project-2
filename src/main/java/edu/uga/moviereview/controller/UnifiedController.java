@@ -206,4 +206,43 @@ public class UnifiedController {
         model.addAttribute("error-message", "");
         return "new-genre";
     }
+
+    @GetMapping("/delete-review")
+    public String getDeleteReviewPage(Model model) {
+        List<Map<String, Object>> reviewDetails = reviewService.fetchReviewDetailsAndIds();
+        model.addAttribute("reviews", reviewDetails);
+        model.addAttribute("error-message", "");
+        return "delete-review";
+    }
+
+    @PostMapping("/delete-review")
+    public String postDeleteReviewPage(Model model,
+        @ModelAttribute("username") String username,
+        @ModelAttribute("password") String password,
+        @ModelAttribute("review-id") int reviewId) {
+
+        boolean userExists = userService.userExists(username);
+        boolean isPasswordCorrect = userService.isPasswordCorrect(username, password);
+
+        List<Map<String, Object>> reviewDetails = reviewService.fetchReviewDetailsAndIds();
+
+        if (!userExists || !isPasswordCorrect) {
+            model.addAttribute("reviews", reviewDetails);
+            model.addAttribute("error-message", userExists ? "Password is incorrect." : "Username doesn't exist.");
+            return "delete-review";
+        }
+
+        if (reviewService.fetchUserNameFromReviewId(reviewId).equals(username)) {
+            reviewService.deleteReview(reviewId);
+            reviewDetails = reviewService.fetchReviewDetailsAndIds();
+            model.addAttribute("reviews", reviewDetails);
+            model.addAttribute("error-message", "");
+            return "delete-review";
+        }
+
+        reviewDetails = reviewService.fetchReviewDetailsAndIds();
+        model.addAttribute("reviews", reviewDetails);
+        model.addAttribute("error-message", "Cannot delete someone else's review.");
+        return "delete-review";
+    }
 }
