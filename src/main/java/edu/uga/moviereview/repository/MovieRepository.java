@@ -15,20 +15,28 @@ public class MovieRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Map<String, Object>> getMoviesWithGenres() {
+    public List<Map<String, Object>> getMovies() {
         String sql =
             """
-            SELECT MovieName, ReleaseDate, Director, Genres.GenreName FROM Movies
-            INNER JOIN Movie_Genre ON Movie_Genre.MovieId = Movies.MovieId
-            INNER JOIN Genres ON Movie_Genre.GenreID = Genres.GenreId
+            SELECT MovieName, ReleaseDate, Director FROM Movies
             """;
         return jdbcTemplate.queryForList(sql);
+    }
+
+    public List<Map<String, Object>> getGenresForMovie(String movieName) {
+        String sql =
+            """
+            SELECT GenreName FROM Genres
+            INNER JOIN Movie_Genre ON Movie_Genre.GenreId = Genres.GenreId
+            INNER JOIN Movies ON Movies.MovieId = Movie_Genre.MovieId AND Movies.MovieName = ?
+            """;
+        return jdbcTemplate.queryForList(sql, movieName);
     }
 
     public List<Map<String, Object>> getTopRatedMovies() {
         String sql =
             """
-            SELECT MovieName, ROUND(AVG(Rating),2) as AverageRating FROM Reviews r
+            SELECT DISTINCT MovieName, ROUND(AVG(Rating),2) as AverageRating FROM Reviews r
             JOIN Movies m ON r.MovieId = m.MovieId
             GROUP BY MovieName
             ORDER BY AverageRating
@@ -50,9 +58,9 @@ public class MovieRepository {
         return jdbcTemplate.queryForList(sql);
     }
 
-    public void insertMovie(String movieName, Date releaseDate, String director) {
+    public void addMovie(String movieName, Date releaseDate, String director) {
         String sql = "INSERT INTO movies (MovieName, ReleaseDate, Director) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, (Object) movieName, releaseDate, director);
+        jdbcTemplate.update(sql, (Object)movieName, releaseDate, director);
     }
 
     public void deleteMovie(String movieName) {
@@ -60,12 +68,13 @@ public class MovieRepository {
         jdbcTemplate.update(sql, movieName);
     }
 
-    public List<Map<String, Object>> fetchMovieAfterDate(Date ReleaseDate) {
+    public List<Map<String, Object>> getMovieAfterDate(Date ReleaseDate) {
         String sql = "SELECT MovieName, ReleaseDate FROM Movies";
         if (Objects.nonNull(ReleaseDate)) {
             sql += " WHERE ReleaseDate > ?";
-            return jdbcTemplate.queryForList(sql,ReleaseDate);
-        } else {
+            return jdbcTemplate.queryForList(sql, ReleaseDate);
+        }
+        else {
             return jdbcTemplate.queryForList(sql);
         }
     }

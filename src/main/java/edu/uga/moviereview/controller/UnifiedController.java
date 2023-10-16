@@ -1,7 +1,9 @@
 package edu.uga.moviereview.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +35,7 @@ public class UnifiedController {
 
     @GetMapping("/movies")
     public String getMoviesPage(Model model) {
-        List<Map<String, Object>> movies = movieService.fetchMoviesWithGenres();
+        List<Map<String, Object>> movies = movieService.fetchMovies();
         model.addAttribute("movies", movies);
         return "movies";
     }
@@ -46,19 +48,38 @@ public class UnifiedController {
     }
 
     @GetMapping("/reviews")
-    public String getReviewsPage(Model model, @RequestParam(required = false) String userName) {
-        if (userName == null)
-        {
+    public String getReviewsPage(Model model,
+        @RequestParam(name = "user-name", required = false) String userName,
+        @RequestParam(name = "movie-name", required = false) String movieName) {
+
+        if (userName != null && movieName != null) {
+            // shouldn't get here, but if it does then default
             List<Map<String, Object>> reviews = reviewService.fetchReviews();
             model.addAttribute("reviews", reviews);
             return "reviews";
         }
-        else
-        {
+        else if (userName != null) {
             List<Map<String, Object>> reviews = reviewService.fetchReviewsWithUserName(userName);
             model.addAttribute("reviews", reviews);
             return "reviews";
         }
+        else if (movieName != null) {
+            List<Map<String, Object>> reviews = reviewService.fetchReviewsWithMovieName(movieName);
+            model.addAttribute("reviews", reviews);
+            return "reviews";
+        }
+        else {
+            List<Map<String, Object>> reviews = reviewService.fetchReviews();
+            model.addAttribute("reviews", reviews);
+            return "reviews";
+        }
+    }
+
+    @GetMapping("/users")
+    public String getUsersPage(Model model) {
+        List<Map<String, Object>> users = userService.fetchUsersSecure();
+        model.addAttribute("users", users);
+        return "users";
     }
 
     @GetMapping("/new-user")
@@ -90,13 +111,30 @@ public class UnifiedController {
 
     @GetMapping("/new-movie")
     public String getNewMoviePage(Model model) {
+        model.addAttribute("error-message", "");
         return "new-movie";
     }
 
     @PostMapping("/new-movie")
-    public String postNewMoviePage() {
-        // stuff here
-        return null;
+    public String postNewMoviePage(Model model,
+        @ModelAttribute("username") String username,
+        @ModelAttribute("password") String password,
+        @ModelAttribute("movie-name") String movieName,
+        @ModelAttribute("release-date") Date releaseDate,
+        @ModelAttribute("director") String director) {
+        
+        boolean userExists = userService.userExists(username);
+        boolean isPasswordCorrect = userService.isPasswordCorrect(username, password);
+
+        if (!userExists || !isPasswordCorrect) {
+            model.addAttribute("error-message", userExists ? "Password is incorrect." : "Username doesn't exist.");
+            return "new-movie";
+        }
+
+        movieService.addMovie(movieName, releaseDate, director);
+
+        model.addAttribute("error-message", "");
+        return "new-movie";
     }
 
     @GetMapping("/new-review")

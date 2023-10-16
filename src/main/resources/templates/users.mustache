@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/site.css">
+    <title>MovieReview - Users</title>
+</head>
+<body>
+
+    <div class="header">
+        <a class="linkimage" href="/">
+            <img src="/images/home.png" alt="Home" width="32" height="32">
+        </a>
+        <p>MovieReview - Users</p>
+    </div>
+
+    <div class="content">
+
+        <div class="usertile-flexbox">
+        {{#users}}
+            <a class="usertile" href="/reviews?user-name={{UserName}}">
+                <h4 class="flex-2">{{UserName}}</h4>
+                <p class="flex-1">Registered on: {{RegistrationDate}}</p>
+            </a>
+        {{/users}}
+        </div>
+
+    </div>
+
+</body>
+</html>

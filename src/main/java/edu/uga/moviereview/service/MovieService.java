@@ -15,8 +15,12 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public List<Map<String, Object>> fetchMoviesWithGenres() {
-        return movieRepository.getMoviesWithGenres();
+    public List<Map<String, Object>> fetchMovies() {
+        return movieRepository.getMovies();
+    }
+
+    public List<Map<String, Object>> fetchGenresForMovie(String movieName) {
+        return movieRepository.getGenresForMovie(movieName);
     }
 
     public List<Map<String, Object>> fetchTopRatedMovies() {
@@ -32,11 +36,11 @@ public class MovieService {
     }
 
     public List<Map<String, Object>> fetchMovieAfterDate(Date releaseDate){
-        return movieRepository.fetchMovieAfterDate(releaseDate);
+        return movieRepository.getMovieAfterDate(releaseDate);
     }
 
-    public void insertMovie(String movieName, Date releaseDate, String director) {
-        movieRepository.insertMovie(movieName, releaseDate, director);
+    public void addMovie(String movieName, Date releaseDate, String director) {
+        movieRepository.addMovie(movieName, releaseDate, director);
     }
 
     public void deleteMovie(String movieName) {

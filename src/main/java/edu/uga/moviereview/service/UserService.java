@@ -1,5 +1,8 @@
 package edu.uga.moviereview.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +13,10 @@ public class UserService {
     
     @Autowired
     private UserRepository userRepository;
+
+    public List<Map<String, Object>> fetchUsersSecure() {
+        return userRepository.getUsersSecure();
+    }
 
     public boolean userExists(String username) {
         return userRepository.hasUser(username);

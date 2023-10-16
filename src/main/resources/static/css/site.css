@@ -128,3 +128,26 @@ ul.no-bullets {
     flex: 1;
     flex-flow: row nowrap;
 }
+
+.usertile-flexbox {
+    display: flex;
+    gap: 10px;
+    flex-flow: column nowrap;
+}
+
+.usertile-flexbox > .usertile {
+    display: flex;
+    flex: 1;
+
+    box-shadow: 0px 0px 3px 1px #757575;
+
+    height: 200px;
+    background-color: #b0b0b0;
+    color: black;
+    text-decoration: none;
+
+    padding: 20px;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    gap: 20px;
+}

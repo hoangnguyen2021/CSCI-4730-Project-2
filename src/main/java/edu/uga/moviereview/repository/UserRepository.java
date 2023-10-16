@@ -1,5 +1,8 @@
 package edu.uga.moviereview.repository;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,6 +12,14 @@ public class UserRepository {
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public List<Map<String, Object>> getUsersSecure() {
+        String sql =
+            """
+            SELECT UserName, RegistrationDate FROM Users
+            """;
+        return jdbcTemplate.queryForList(sql);
+    }
 
     public boolean hasUser(String username) {
         String sql =

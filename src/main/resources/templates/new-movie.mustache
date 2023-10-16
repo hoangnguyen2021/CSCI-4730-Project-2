@@ -19,23 +19,25 @@
             <ul class="no-bullets">
                 
                 <li><label for="username">Username: </label></li>
-                <li><input type="text" id="username" name="username"></li>
+                <li><input type="text" id="username" name="username" required></li>
 
                 <li><label for="password">Password: </label></li>
-                <li><input type="text" id="password" name="password"></li>
+                <li><input type="text" id="password" name="password" required></li>
 
                 <li><label for="movie-name">Movie Name: </label></li>
-                <li><input type="text" id="movie-name" name="movie-name"></li>
+                <li><input type="text" id="movie-name" name="movie-name" required></li>
 
                 <li><label for="release-date">Release Date: </label></li>
-                <li><input type="date" id="release-date" name="release-date"></li>
+                <li><input type="date" id="release-date" name="release-date" required></li>
 
                 <li><label for="director">Director: </label></li>
-                <li><input type="text" id="director" name="director"></li>
+                <li><input type="text" id="director" name="director" required></li>
 
                 <li><input type="submit" value="Submit!"></input></li>
             <ul>
         </form>
+
+        <p>{{error-message}}</p>
 
     </div>
 
